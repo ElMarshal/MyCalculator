@@ -5,6 +5,7 @@
 #include <new>
 
 #define ARRAY_INITIAL_CAPACITY 8
+#define MAX_SIZE_T(x, y) (((x) > (y)) ? (x) : (y))
 
 template <typename T>
 class Array
@@ -24,14 +25,15 @@ public:
 	const T& last() const;
 	
     void add(const T value);
-	void remove_at(size_t idx);
 	void insert_at(const T value, size_t idx);
+    void pop();
+	void remove_at(size_t idx);
 
 	size_t size() const;
 
 private:
 	void resize(size_t new_capacity);
-	void check_capacity_and_resize(size_t new_capacity);
+	void check_capacity_and_resize(size_t desired_size);
 
 private:
 	size_t m_capacity;
@@ -55,7 +57,7 @@ Array<T>::~Array()
         return;
 
     // call destructor of all elements
-    for (int i = 0; i < m_size; i++)
+    for (size_t i = 0; i < m_size; i++)
     {
         m_array[i].~T();
     }
@@ -125,19 +127,6 @@ void Array<T>::add(const T value)
 }
 
 template <typename T>
-void Array<T>::remove_at(size_t idx)
-{
-    for (size_t i = idx; i < m_size-1; i++)
-    {
-        m_array[i] = m_array[i+1];
-    }
-
-    m_array[m_size-1].~T();
-
-    m_size -= 1;
-}
-
-template <typename T>
 void Array<T>::insert_at(const T value, size_t idx)
 {
     check_capacity_and_resize(m_size);
@@ -153,6 +142,24 @@ void Array<T>::insert_at(const T value, size_t idx)
     m_array[idx] = value;
 }
 
+template <typename T>
+void Array<T>::pop()
+{
+    remove_at(m_size-1);
+}
+
+template <typename T>
+void Array<T>::remove_at(size_t idx)
+{
+    for (size_t i = idx; i < m_size-1; i++)
+    {
+        m_array[i] = m_array[i+1];
+    }
+
+    m_array[m_size-1].~T();
+
+    m_size -= 1;
+}
 
 template <typename T>
 size_t Array<T>::size() const
@@ -166,7 +173,7 @@ void Array<T>::resize(size_t new_capacity)
     // call destructor of deleted elements
     if (new_capacity < m_size)
     {
-        for (int i = new_capacity; i < m_size; i++)
+        for (size_t i = new_capacity; i < m_size; i++)
         {
             m_array[i].~T();
         }
@@ -184,10 +191,10 @@ void Array<T>::resize(size_t new_capacity)
 }
 
 template <typename T>
-void Array<T>::check_capacity_and_resize(size_t new_capacity)
+void Array<T>::check_capacity_and_resize(size_t desired_size)
 {
-    if (new_capacity >= m_capacity)
+    if (desired_size >= m_capacity)
     {
-        resize(m_capacity * 2);
+        resize(MAX_SIZE_T(m_capacity * 2, desired_size));
     }
 }

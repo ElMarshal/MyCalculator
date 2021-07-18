@@ -5,24 +5,25 @@
 
 int main()
 {
+	size_t test_size = 5000;
 	Array<int> arr;
 	Array<std::string> output;
 
 	// using add and last()
-	for (int i = 0; i < 10000; i++)
+	for (size_t i = 0; i < test_size; i++)
 	{
 		arr.add((i^2 + 3*i) % 10);
 		output.add(std::to_string(arr.last()));
 	}
 
 	// using [] operator
-	for (int i = 0; i < 10000; i++)
+	for (size_t i = 0; i < test_size; i++)
 	{
 		output[i] = output[i] + "   " + std::to_string(arr[i]);
 	}
 
 	// using first and remove_at
-	for (int i = 0; i < 10000; i++)
+	for (size_t i = 0; i < test_size; i++)
 	{
 		output[i] = output[i] + "   " + std::to_string(arr.first());
 		arr.remove_at(0);
@@ -30,7 +31,7 @@ int main()
 
 	output.insert_at("last   |   []   |   first", 0);
 
-	for (int i = 0; i < 10000; i++)
+	for (size_t i = 0; i < test_size; i++)
 	{
 		printf("%s\n", output[i].c_str());
 	}
