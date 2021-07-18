@@ -24,9 +24,9 @@ public:
 	T& last();
 	const T& last() const;
 	
-    void add(const T value);
+    void push(const T value);
 	void insert_at(const T value, size_t idx);
-    void pop();
+    T pop();
 	void remove_at(size_t idx);
 
 	size_t size() const;
@@ -116,7 +116,7 @@ const T& Array<T>::last() const
 }
 
 template <typename T>
-void Array<T>::add(const T value)
+void Array<T>::push(const T value)
 {
     check_capacity_and_resize(m_size);
 
@@ -143,9 +143,11 @@ void Array<T>::insert_at(const T value, size_t idx)
 }
 
 template <typename T>
-void Array<T>::pop()
+T Array<T>::pop()
 {
+    T result = at(m_size-1);
     remove_at(m_size-1);
+    return result;
 }
 
 template <typename T>

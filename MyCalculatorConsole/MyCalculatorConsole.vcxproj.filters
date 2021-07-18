@@ -23,5 +23,8 @@
     <ClInclude Include="src\array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

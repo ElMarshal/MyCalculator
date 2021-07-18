@@ -12,8 +12,8 @@ int main()
 	// using add and last()
 	for (size_t i = 0; i < test_size; i++)
 	{
-		arr.add((i^2 + 3*i) % 10);
-		output.add(std::to_string(arr.last()));
+		arr.push((i^2 + 3*i) % 10);
+		output.push(std::to_string(arr.last()));
 	}
 
 	// using [] operator
