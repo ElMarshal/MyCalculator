@@ -1,6 +1,7 @@
 #pragma once
 #include "array.h"
 
+
 template <typename T>
 class Stack
 {

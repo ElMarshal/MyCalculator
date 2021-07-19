@@ -1,6 +1,7 @@
 #include "io.h"
 
 #include "array.h"
+#include "memory.h"
 
 
 char* readline(FILE* stream)
@@ -32,7 +33,7 @@ char* readline(FILE* stream)
 	}
 
 	size_t line_len = temp_line.size();
-	char* line = (char*)malloc((line_len+1) * sizeof(char));
+	char* line = (char*)mem_malloc((line_len+1) * sizeof(char));
 	if (!line)
 	{
 		return NULL;

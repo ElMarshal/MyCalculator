@@ -1,11 +1,16 @@
 #pragma once
 #include "array.h"
+
 #include <stdlib.h>
 #include <assert.h>
 #include <new>
 
+#include "memory.h"
+
+
 #define ARRAY_INITIAL_CAPACITY 8
 #define MAX_SIZE_T(x, y) (((x) > (y)) ? (x) : (y))
+
 
 template <typename T>
 class Array
@@ -47,7 +52,7 @@ Array<T>::Array()
 {
     m_capacity = ARRAY_INITIAL_CAPACITY;
     m_size = 0;
-    m_array = (T*)malloc(m_capacity * sizeof(T));
+    m_array = (T*)mem_malloc(m_capacity * sizeof(T));
 }
 
 template <typename T>
@@ -62,7 +67,7 @@ Array<T>::~Array()
         m_array[i].~T();
     }
 
-    free(m_array);
+    mem_free(m_array);
 }
 
 template <typename T>
@@ -181,7 +186,7 @@ void Array<T>::resize(size_t new_capacity)
         }
     }
 
-    void* new_array = realloc(m_array, new_capacity * sizeof(T));
+    void* new_array = mem_realloc(m_array, new_capacity * sizeof(T));
     assert(new_array);
 
     m_array = (T*)new_array;

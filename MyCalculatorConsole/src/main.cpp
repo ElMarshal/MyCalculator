@@ -3,6 +3,7 @@
 
 #include "array.h"
 #include "io.h"
+#include "memory.h"
 
 
 int main()
@@ -16,7 +17,7 @@ int main()
 	
 	printf("%s\n", line);
 
-	free(line);
+	mem_free(line);
 
 	return 0;
 }
