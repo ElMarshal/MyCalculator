@@ -12,6 +12,7 @@ enum TokenType
 	TT_UNKNOWN = 0,
 	TT_OPERATOR,
 	TT_NUMBER,
+	TT_PARENTHESES,
 };
 
 struct Token
@@ -24,13 +25,18 @@ struct Token
 	{
 		struct
 		{
-			char value;
+			char v;
 		} op;
 
 		struct
 		{
-			Real value;
+			Real v;
 		} num;
+
+		struct
+		{
+			char v;
+		} parenthesis;
 	} specific;
 };
 

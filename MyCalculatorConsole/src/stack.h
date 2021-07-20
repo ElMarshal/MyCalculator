@@ -17,6 +17,16 @@ public:
 		return m_arr.pop();
 	}
 
+	T top()
+	{
+		return m_arr.last();
+	}
+
+	void clear()
+	{
+		m_arr.clear();
+	}
+
 	size_t size() const
 	{
 		return m_arr.size();

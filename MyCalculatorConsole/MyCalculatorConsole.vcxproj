@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\math_expression.cpp" />
     <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\memory.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\array.h" />
+    <ClInclude Include="src\math_expression.h" />
     <ClInclude Include="src\io.h" />
     <ClInclude Include="src\memory.h" />
     <ClInclude Include="src\stack.h" />

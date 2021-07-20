@@ -8,6 +8,9 @@ char* readline(FILE* stream)
 {
 	Array<char> temp_line;
 
+	// flush stdin
+	fseek(stdin, 0, SEEK_END);
+
 	char buffer[128] = { 0 };
 	while (fgets(buffer, sizeof(buffer), stdin))
 	{

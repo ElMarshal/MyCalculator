@@ -48,7 +48,7 @@ char char_to_lowercase(const char c)
 {
 	if (is_uppercase(c))
 	{
-		return c + ('a' + 'A');
+		return c + ('a' - 'A');
 	}
 	return c;
 }
@@ -57,7 +57,7 @@ char char_to_uppercase(const char c)
 {
 	if (is_lowercase(c))
 	{
-		return c - ('a' + 'A');
+		return c - ('a' - 'A');
 	}
 	return c;
 }

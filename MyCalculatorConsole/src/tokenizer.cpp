@@ -25,16 +25,18 @@ Array<Token> Tokenizer::tokenize()
 
 bool Tokenizer::next_token()
 {
-	if (peek() == '\0')
-	{
-		return false;
-	}
-
 	// skip spaces
 	while (peek() == ' ')
 	{
 		advance();
 	}
+
+	// end
+	if (peek() == '\0')
+	{
+		return false;
+	}
+
 
 	// initialize token
 	Token token;
@@ -53,25 +55,23 @@ bool Tokenizer::next_token()
 	{
 		// signed number = perator + [sign] + number
 		// + or - number
-		if (peek() == '+' || peek() == '-')
-		{
-			token.type = TT_NUMBER;
-			parse_number(&token);
-		}
-		else
-		{
-			// TODO: handle error
-			_CrtDbgBreak();
-		}
+		token.type = TT_NUMBER;
+		parse_number(&token);
 	}
 	else if (is_operator(peek()))
 	{
 		token.type = TT_OPERATOR;
-		token.specific.op.value = advance();
+		token.specific.op.v = advance();
+	}
+	else if (peek() == '(' || peek() == ')')
+	{
+		token.type = TT_PARENTHESES;
+		token.specific.op.v = advance();
 	}
 	else
 	{
 		// TODO: handle error
+		printf("Error: unexpected character\n");
 		_CrtDbgBreak();
 	}
 
@@ -192,7 +192,7 @@ void Tokenizer::parse_number(Token* token)
 		exponent = parse_signed_number();
 	}
 
-	token->specific.num.value = number * pow(10, exponent);
+	token->specific.num.v = number * pow(10, exponent);
 }
 
 

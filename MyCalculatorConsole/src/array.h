@@ -36,6 +36,7 @@ public:
     T pop();
 	void remove(const T value);
 	void remove_at(size_t idx);
+    void clear();
 
     int find(const T value) const; // return -1 if not found
 
@@ -76,23 +77,6 @@ Array<T>::Array(const Array& arr) :
     {
         push(arr[i]);
     }
-
-    //m_capacity = arr.m_capacity;
-    //m_size = arr.m_size;
-    //m_array = (T*)mem_malloc(m_capacity * sizeof(T));
-    //
-    //// call copy constructor for all objects
-    //if (std::is_assignable<T, const T&>::value)
-    //{
-    //    for (size_t i = 0; i < m_size; i++)
-    //    {
-    //        m_array[i] = arr.m_array[i];
-    //    }
-    //}
-    //else
-    //{
-    //    mem_copy(m_array, arr.m_array, m_size * sizeof(T));
-    //}
 }
 
 template <typename T>
@@ -213,6 +197,21 @@ void Array<T>::remove_at(size_t idx)
     m_array[m_size-1].~T();
 
     m_size -= 1;
+}
+
+template <typename T>
+void Array<T>::clear()
+{
+    if (!m_array)
+        return;
+
+    // call destructor of all elements
+    for (size_t i = 0; i < m_size; i++)
+    {
+        m_array[i].~T();
+    }
+
+    m_size = 0;
 }
 
 template <typename T>
