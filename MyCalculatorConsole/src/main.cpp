@@ -1,9 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <string>
 
 #include "array.h"
 #include "io.h"
 #include "memory.h"
+#include "tokenizer.h"
 
 
 int main()
@@ -15,7 +18,10 @@ int main()
 		return -1;
 	}
 	
-	printf("%s\n", line);
+	printf("input: %s\n", line);
+
+	Tokenizer tokenizer = Tokenizer(line);
+	Array<Token> tokens = tokenizer.tokenize();
 
 	mem_free(line);
 

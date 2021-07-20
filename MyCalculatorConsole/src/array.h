@@ -1,9 +1,9 @@
 #pragma once
-#include "array.h"
 
 #include <stdlib.h>
 #include <assert.h>
 #include <new>
+#include <type_traits>
 
 #include "memory.h"
 
@@ -17,6 +17,7 @@ class Array
 {
 public:
 	Array();
+    Array(size_t initial_capacity);
 	Array(const Array& arr);
 	~Array();
 
@@ -60,17 +61,38 @@ Array<T>::Array()
 }
 
 template <typename T>
-Array<T>::Array(const Array& arr)
+Array<T>::Array(size_t initial_capacity)
 {
-    m_capacity = arr.m_capacity;
-    m_size = arr.m_size;
+    m_capacity = initial_capacity;
+    m_size = 0;
     m_array = (T*)mem_malloc(m_capacity * sizeof(T));
+}
 
-    // call copy constructor for all objects
-    for (size_t i = 0; i < m_size; i++)
+template <typename T>
+Array<T>::Array(const Array& arr) : 
+    Array(arr.m_capacity)
+{
+    for (size_t i = 0; i < arr.m_size; i++)
     {
-        m_array[i].T(arr.m_array[i]);
+        push(arr[i]);
     }
+
+    //m_capacity = arr.m_capacity;
+    //m_size = arr.m_size;
+    //m_array = (T*)mem_malloc(m_capacity * sizeof(T));
+    //
+    //// call copy constructor for all objects
+    //if (std::is_assignable<T, const T&>::value)
+    //{
+    //    for (size_t i = 0; i < m_size; i++)
+    //    {
+    //        m_array[i] = arr.m_array[i];
+    //    }
+    //}
+    //else
+    //{
+    //    mem_copy(m_array, arr.m_array, m_size * sizeof(T));
+    //}
 }
 
 template <typename T>

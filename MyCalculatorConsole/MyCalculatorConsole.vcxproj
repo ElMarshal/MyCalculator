@@ -150,12 +150,16 @@
     <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\memory.cpp" />
+    <ClCompile Include="src\tokenizer.cpp" />
+    <ClCompile Include="src\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\array.h" />
     <ClInclude Include="src\io.h" />
     <ClInclude Include="src\memory.h" />
     <ClInclude Include="src\stack.h" />
+    <ClInclude Include="src\tokenizer.h" />
+    <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
