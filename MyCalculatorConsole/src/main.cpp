@@ -47,6 +47,10 @@ static void test_expression(const char* expression, Real expected_result)
 
 static void tests()
 {
+	// Notes:
+	//  tests source: https://lukaszwrobel.pl/blog/math-parser-part-4-tests/
+	//  credits to: Lukasz Wrobel
+
 	test_expression("2 + 3", 5);
 	test_expression("2 * 3", 6);
 	test_expression("89", 89);

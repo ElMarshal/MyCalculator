@@ -4,6 +4,9 @@
 #include "stack.h"
 
 
+// Notes:
+//  infix to postfix algorithm: https://condor.depaul.edu/ichu/csc415/notes/notes9/Infix.htm
+
 static int operator_priority(const char c)
 {
 	switch (c)
@@ -15,10 +18,6 @@ static int operator_priority(const char c)
 	case '*':
 	case '/':
 		return 2;
-
-	//case '(':
-	//case ')':
-	//	return 3;
 
 	default:
 		return 0;
