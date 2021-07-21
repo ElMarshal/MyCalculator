@@ -3,5 +3,19 @@
 #include "array.h"
 #include "tokenizer.h"
 
-Real solve_math_expression(const Array<Token>& tokens);
+
+class MathExpression
+{
+public:
+	MathExpression(const Array<Token>& tokens);
+
+	Real solve();
+
+	const Array<std::string>& errors() const;
+
+private:
+	Array<Token> m_tokens;
+
+	Array<std::string> m_errors;
+};
 

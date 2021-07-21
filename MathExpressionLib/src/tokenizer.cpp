@@ -1,9 +1,10 @@
-#include "exlib\tokenizer.h"
+#include "exlib/tokenizer.h"
 
 #include <math.h>
 #include <assert.h>
 
-#include "exlib\utils.h"
+#include "exlib/utils.h"
+#include "exlib/fmt_string.h"
 
 
 Tokenizer::Tokenizer(const char* str)
@@ -16,11 +17,16 @@ Tokenizer::Tokenizer(const char* str)
 	m_column_number = 0;
 }
 
-Array<Token> Tokenizer::tokenize()
+const Array<Token>& Tokenizer::tokenize()
 {
 	while (next_token());
 
 	return m_tokens;
+}
+
+const Array<std::string>& Tokenizer::errors() const
+{
+	return m_errors;
 }
 
 bool Tokenizer::next_token()
@@ -70,9 +76,9 @@ bool Tokenizer::next_token()
 	}
 	else
 	{
-		// TODO: handle error
-		printf("Error: unexpected character\n");
-		_CrtDbgBreak();
+		// handle error
+		m_errors.push(fmt_string("unexpected character %d:%d: \'%c\'", m_line_number, m_column_number, peek()));
+		return false;
 	}
 
 	// finish token and add it to the token list

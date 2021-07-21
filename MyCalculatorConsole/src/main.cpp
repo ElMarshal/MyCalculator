@@ -3,20 +3,36 @@
 #include <string.h>
 #include <string>
 
-#include "exlib\array.h"
-#include "exlib\io.h"
-#include "exlib\memory.h"
-#include "exlib\tokenizer.h"
-#include "exlib\math_expression.h"
-#include "exlib\utils.h"
+#include "exlib/array.h"
+#include "exlib/io.h"
+#include "exlib/memory.h"
+#include "exlib/tokenizer.h"
+#include "exlib/math_expression.h"
+#include "exlib/utils.h"
 
 
 static Real solve_math_expression_str(const char* str)
 {
 	Tokenizer tokenizer = Tokenizer(str);
 	Array<Token> tokens = tokenizer.tokenize();
+	Array<std::string> errors = tokenizer.errors();
 
-	return solve_math_expression(tokens);
+	if (errors.size() > 0)
+	{
+		printf("- Parsing error: %s\n", errors[0].c_str());
+		return 0.0;
+	}
+
+	MathExpression math_exp = MathExpression(tokens);
+	Real result = math_exp.solve();
+	errors = math_exp.errors();
+	if (errors.size() > 0)
+	{
+		printf("- Expression error: %s\n", errors[0].c_str());
+		return 0.0;
+	}
+
+	return result;
 }
 
 static int solve_input_expression()

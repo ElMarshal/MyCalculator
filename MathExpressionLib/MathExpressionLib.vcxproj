@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\exlib\array.h" />
+    <ClInclude Include="include\exlib\fmt_string.h" />
     <ClInclude Include="include\exlib\io.h" />
     <ClInclude Include="include\exlib\math_expression.h" />
     <ClInclude Include="include\exlib\memory.h" />
@@ -28,6 +29,7 @@
     <ClInclude Include="include\exlib\utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\fmt_string.cpp" />
     <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\math_expression.cpp" />
     <ClCompile Include="src\memory.cpp" />

@@ -1,48 +1,38 @@
-#include "exlib\math_expression.h"
+#include "exlib/math_expression.h"
 
-#include "exlib\memory.h"
-#include "exlib\stack.h"
+#include "exlib/memory.h"
+#include "exlib/stack.h"
+#include "exlib/fmt_string.h"
 
 
 // Notes:
 //  infix to postfix algorithm: https://condor.depaul.edu/ichu/csc415/notes/notes9/Infix.htm
 
-static int operator_priority(const char c)
+
+static int operator_priority(const char c);
+static bool is_left_parentheses(const Token& token);
+static bool is_right_parentheses(const Token& token);
+
+
+MathExpression::MathExpression(const Array<Token>& tokens)
 {
-	switch (c)
-	{
-	case '+':
-	case '-':
-		return 1;
-
-	case '*':
-	case '/':
-		return 2;
-
-	default:
-		return 0;
-	}
+	m_tokens = tokens;
 }
 
-static bool is_left_parentheses(const Token& token)
+const Array<std::string>& MathExpression::errors() const
 {
-	return token.type == TT_PARENTHESES && token.specific.parenthesis.v == '(';
+	return m_errors;
 }
 
-static bool is_right_parentheses(const Token& token)
-{
-	return token.type == TT_PARENTHESES && token.specific.parenthesis.v == ')';
-}
-
-Real solve_math_expression(const Array<Token>& tokens)
+Real MathExpression::solve()
 {
 	// convert from infix to postfix notation
 	Array<Token> postfix_tokens;
 	Stack<Token> temp_stack;
 
-	for (size_t i = 0; i < tokens.size(); i++)
+	for (size_t i = 0; i < m_tokens.size(); i++)
 	{
-		const Token& cur_token = tokens[i];
+		const Token& cur_token = m_tokens[i];
 
 		if (cur_token.type == TT_NUMBER)
 		{
@@ -96,7 +86,12 @@ Real solve_math_expression(const Array<Token>& tokens)
 	}
 
 	// check for remaining left parenthesis
-	assert(temp_stack.size() == 0);
+	if (temp_stack.size() != 0)
+	{
+		// handle error
+		m_errors.push("Unmatched Parenthesis");
+		return 0.0;
+	}
 
 	// evaluate posfix expression
 	Stack<Real> num_stack;
@@ -111,7 +106,13 @@ Real solve_math_expression(const Array<Token>& tokens)
 		}
 		else if (cur_token.type == TT_OPERATOR)
 		{
-			assert(num_stack.size() >= 2);
+			// check stack for at least 2 operands
+			if (num_stack.size() < 2)
+			{
+				// handle error
+				m_errors.push("Missing operand");
+				return 0.0;
+			}
 
 			Real rhs = num_stack.pop();
 			Real lhs = num_stack.pop();
@@ -139,8 +140,45 @@ Real solve_math_expression(const Array<Token>& tokens)
 		}
 	}
 
+	if (num_stack.size() == 0)
+	{
+		// handle error
+		m_errors.push("Unbalanced arithmatic expression");
+		return 0.0;
+	}
+
 	// return value
-	assert(num_stack.size() >= 1);
 	return num_stack.pop();
 }
+
+
+// static functions
+
+static int operator_priority(const char c)
+{
+	switch (c)
+	{
+	case '+':
+	case '-':
+		return 1;
+
+	case '*':
+	case '/':
+		return 2;
+
+	default:
+		return 0;
+	}
+}
+
+static bool is_left_parentheses(const Token& token)
+{
+	return token.type == TT_PARENTHESES && token.specific.parenthesis.v == '(';
+}
+
+static bool is_right_parentheses(const Token& token)
+{
+	return token.type == TT_PARENTHESES && token.specific.parenthesis.v == ')';
+}
+
 

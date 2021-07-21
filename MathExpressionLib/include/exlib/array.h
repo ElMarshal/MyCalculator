@@ -18,8 +18,10 @@ class Array
 public:
 	Array();
     Array(size_t initial_capacity);
-	Array(const Array& arr);
+	Array(const Array<T>& arr);
 	~Array();
+
+    Array<T>& operator=(const Array<T>& arr);
 
 	T& at(size_t idx);
 	const T& at(size_t idx) const;
@@ -92,6 +94,19 @@ Array<T>::~Array()
     }
 
     mem_free(m_array);
+}
+
+template <typename T>
+Array<T>& Array<T>::operator=(const Array<T>& arr)
+{
+    clear();
+
+    for (size_t i = 0; i < arr.m_size; i++)
+    {
+        push(arr[i]);
+    }
+
+    return *this;
 }
 
 template <typename T>

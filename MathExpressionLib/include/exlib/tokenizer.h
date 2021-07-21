@@ -46,7 +46,9 @@ class Tokenizer
 public:
 	Tokenizer(const char* str);
 
-	Array<Token> tokenize();
+	const Array<Token>& tokenize();
+
+	const Array<std::string>& errors() const;
 
 private:
 	bool next_token();
@@ -69,5 +71,7 @@ private:
 	size_t m_column_number;
 
 	Array<Token> m_tokens;
+
+	Array<std::string> m_errors;
 };
 
