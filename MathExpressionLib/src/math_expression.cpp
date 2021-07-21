@@ -110,7 +110,7 @@ Real MathExpression::solve()
 			if (num_stack.size() < 2)
 			{
 				// handle error
-				m_errors.push(fmt_string("Missing operand for operator %c %d:%d", cur_token.specific.op.v, cur_token.line_number, cur_token.column_number));
+				m_errors.push(fmt_string("Missing operand for \'%c\' operator %d:%d", cur_token.specific.op.v, cur_token.line_number, cur_token.column_number));
 				return 0.0;
 			}
 
