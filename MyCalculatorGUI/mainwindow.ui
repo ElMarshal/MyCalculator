@@ -155,6 +155,12 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>37</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>18</pointsize>
@@ -566,6 +572,28 @@
       </widget>
      </item>
     </layout>
+    <zorder>btn_rp</zorder>
+    <zorder>btn_lp</zorder>
+    <zorder>btn_cl</zorder>
+    <zorder>btn_del</zorder>
+    <zorder>btn_ans</zorder>
+    <zorder>btn_equal</zorder>
+    <zorder>btn_div</zorder>
+    <zorder>btn_mul</zorder>
+    <zorder>btn_minus</zorder>
+    <zorder>btn_plus</zorder>
+    <zorder>btn_dot</zorder>
+    <zorder>btn_e</zorder>
+    <zorder>btn_9</zorder>
+    <zorder>btn_8</zorder>
+    <zorder>btn_7</zorder>
+    <zorder>btn_6</zorder>
+    <zorder>btn_5</zorder>
+    <zorder>btn_4</zorder>
+    <zorder>btn_3</zorder>
+    <zorder>btn_2</zorder>
+    <zorder>btn_1</zorder>
+    <zorder>btn_0</zorder>
    </widget>
    <widget class="QLabel" name="lbl_result">
     <property name="geometry">
@@ -585,9 +613,38 @@
      <string>= 0</string>
     </property>
    </widget>
+   <zorder>lbl_log</zorder>
+   <zorder>gridLayoutWidget</zorder>
+   <zorder>lbl_result</zorder>
+   <zorder>edit_exp</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>edit_exp</tabstop>
+  <tabstop>btn_0</tabstop>
+  <tabstop>btn_1</tabstop>
+  <tabstop>btn_2</tabstop>
+  <tabstop>btn_3</tabstop>
+  <tabstop>btn_4</tabstop>
+  <tabstop>btn_5</tabstop>
+  <tabstop>btn_6</tabstop>
+  <tabstop>btn_7</tabstop>
+  <tabstop>btn_8</tabstop>
+  <tabstop>btn_9</tabstop>
+  <tabstop>btn_e</tabstop>
+  <tabstop>btn_dot</tabstop>
+  <tabstop>btn_plus</tabstop>
+  <tabstop>btn_minus</tabstop>
+  <tabstop>btn_mul</tabstop>
+  <tabstop>btn_div</tabstop>
+  <tabstop>btn_equal</tabstop>
+  <tabstop>btn_ans</tabstop>
+  <tabstop>btn_del</tabstop>
+  <tabstop>btn_cl</tabstop>
+  <tabstop>btn_lp</tabstop>
+  <tabstop>btn_rp</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <slots>
