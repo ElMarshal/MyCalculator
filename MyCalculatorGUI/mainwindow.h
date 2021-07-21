@@ -5,6 +5,8 @@
 
 #include "ui_mainwindow.h"
 
+#include <exlib/real.h>
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,7 +16,7 @@ public:
 
 private:
     void exp_append_str(const QString& str);
-    void exp_append_num(double num);
+    void exp_append_real(Real num);
     void exp_append_int(int num);
     void exp_delete();
     void exp_clear();

@@ -34,7 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui.btn_mul, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "*"));
     connect(ui.btn_div, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "/"));
 
-    connect(ui.btn_ans, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_num, this, std::cref(m_last_result)));
+    connect(ui.btn_lp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "("));
+    connect(ui.btn_rp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, ")"));
+
+    connect(ui.btn_ans, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_real, this, std::cref(m_last_result)));
 
     connect(ui.btn_del, &QPushButton::pressed, this, std::bind(&MainWindow::exp_delete, this));
     connect(ui.btn_cl, &QPushButton::pressed, this, std::bind(&MainWindow::exp_clear, this));
@@ -120,7 +123,7 @@ void MainWindow::exp_append_str(const QString& str)
     ui.edit_exp->setText(ui.edit_exp->text() + str);
 }
 
-void MainWindow::exp_append_num(double num)
+void MainWindow::exp_append_real(Real num)
 {
     exp_append_str(QString("%1").arg(num));
 }

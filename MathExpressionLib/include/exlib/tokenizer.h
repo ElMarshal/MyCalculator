@@ -3,9 +3,8 @@
 #include <string>
 
 #include "array.h"
+#include "real.h"
 
-
-typedef double Real;
 
 enum TokenType
 {

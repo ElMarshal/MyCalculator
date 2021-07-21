@@ -89,7 +89,7 @@ Real MathExpression::solve()
 	if (temp_stack.size() != 0)
 	{
 		// handle error
-		m_errors.push(fmt_string("Unmatched Parenthesis %d:%d: \'(\'", temp_stack.top().line_number, temp_stack.top().column_number));
+		m_errors.push(fmt_string("Unmatched parentheses %d:%d: \'(\'", temp_stack.top().line_number, temp_stack.top().column_number));
 		return 0.0;
 	}
 
