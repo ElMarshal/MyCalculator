@@ -89,7 +89,7 @@ Real MathExpression::solve()
 	if (temp_stack.size() != 0)
 	{
 		// handle error
-		m_errors.push("Unmatched Parenthesis");
+		m_errors.push(fmt_string("Unmatched Parenthesis %d:%d: \'(\'", temp_stack.top().line_number, temp_stack.top().column_number));
 		return 0.0;
 	}
 
@@ -110,7 +110,7 @@ Real MathExpression::solve()
 			if (num_stack.size() < 2)
 			{
 				// handle error
-				m_errors.push("Missing operand");
+				m_errors.push(fmt_string("Missing operand for operator %c %d:%d", cur_token.specific.op.v, cur_token.line_number, cur_token.column_number));
 				return 0.0;
 			}
 
