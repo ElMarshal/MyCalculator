@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyCalculatorConsole", "MyCalculatorConsole\MyCalculatorConsole.vcxproj", "{B543F5E4-362B-405E-B1BE-680AAF5BE6DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathExpressionLib", "MathExpressionLib\MathExpressionLib.vcxproj", "{F3078DE3-5847-4070-B6B8-E76AADD79B3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{B543F5E4-362B-405E-B1BE-680AAF5BE6DD}.Release|x64.Build.0 = Release|x64
 		{B543F5E4-362B-405E-B1BE-680AAF5BE6DD}.Release|x86.ActiveCfg = Release|Win32
 		{B543F5E4-362B-405E-B1BE-680AAF5BE6DD}.Release|x86.Build.0 = Release|Win32
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Debug|x64.ActiveCfg = Debug|x64
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Debug|x64.Build.0 = Debug|x64
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Debug|x86.ActiveCfg = Debug|Win32
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Debug|x86.Build.0 = Debug|Win32
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Release|x64.ActiveCfg = Release|x64
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Release|x64.Build.0 = Release|x64
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Release|x86.ActiveCfg = Release|Win32
+		{F3078DE3-5847-4070-B6B8-E76AADD79B3C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

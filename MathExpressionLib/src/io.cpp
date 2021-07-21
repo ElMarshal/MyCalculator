@@ -1,6 +1,6 @@
-#include "io.h"
+#include "exlib\io.h"
 
-#include "array.h"
+#include "exlib\array.h"
 #include "memory.h"
 
 

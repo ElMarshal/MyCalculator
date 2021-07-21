@@ -3,12 +3,12 @@
 #include <string.h>
 #include <string>
 
-#include "array.h"
-#include "io.h"
-#include "memory.h"
-#include "tokenizer.h"
-#include "math_expression.h"
-#include "utils.h"
+#include "exlib\array.h"
+#include "exlib\io.h"
+#include "exlib\memory.h"
+#include "exlib\tokenizer.h"
+#include "exlib\math_expression.h"
+#include "exlib\utils.h"
 
 
 static Real solve_math_expression_str(const char* str)

@@ -1,7 +1,7 @@
-#include "math_expression.h"
+#include "exlib\math_expression.h"
 
-#include "memory.h"
-#include "stack.h"
+#include "exlib\memory.h"
+#include "exlib\stack.h"
 
 
 // Notes:
