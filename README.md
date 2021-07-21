@@ -1,6 +1,8 @@
 # My Calculator
 An arithmetic expression parser that support spaces, parentheses and scientific notation numbers.
 
+![Screenshot of the GUI](screenshots/gui_screenshot.png)
+
 ## Components:
 * MathExpressionLib: The arithmetic expression parsing library.
 * MyCalculatorConsole: A console calculator based on MathExpressionLib.
@@ -40,4 +42,6 @@ static Real solve_math_expression_str(const char* str)
 ## References:
 * Infix to postfix arithmetic algorithm: https://condor.depaul.edu/ichu/csc415/notes/notes9/Infix.htm
 * tests source by Lukasz Wrobel: https://lukaszwrobel.pl/blog/math-parser-part-4-tests/
+
+## Done ✔️
 
