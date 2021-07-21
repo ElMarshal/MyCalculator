@@ -39,6 +39,9 @@
     <ClInclude Include="include\exlib\fmt_string.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\exlib\real.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\io.cpp">

@@ -24,6 +24,7 @@
     <ClInclude Include="include\exlib\io.h" />
     <ClInclude Include="include\exlib\math_expression.h" />
     <ClInclude Include="include\exlib\memory.h" />
+    <ClInclude Include="include\exlib\real.h" />
     <ClInclude Include="include\exlib\stack.h" />
     <ClInclude Include="include\exlib\tokenizer.h" />
     <ClInclude Include="include\exlib\utils.h" />
