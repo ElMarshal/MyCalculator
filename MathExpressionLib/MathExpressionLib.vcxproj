@@ -25,6 +25,7 @@
     <ClInclude Include="include\exlib\io.h" />
     <ClInclude Include="include\exlib\linked_list.h" />
     <ClInclude Include="include\exlib\math_expression.h" />
+    <ClInclude Include="include\exlib\math_symbols.h" />
     <ClInclude Include="include\exlib\memory.h" />
     <ClInclude Include="include\exlib\real.h" />
     <ClInclude Include="include\exlib\stack.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="src\fmt_string.cpp" />
     <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\math_expression.cpp" />
+    <ClCompile Include="src\math_symbols.cpp" />
     <ClCompile Include="src\memory.cpp" />
     <ClCompile Include="src\tokenizer.cpp" />
     <ClCompile Include="src\utils.cpp" />

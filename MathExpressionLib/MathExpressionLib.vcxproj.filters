@@ -48,6 +48,9 @@
     <ClInclude Include="include\exlib\linked_list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\exlib\math_symbols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\io.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\fmt_string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math_symbols.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

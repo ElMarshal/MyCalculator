@@ -3,16 +3,17 @@
 #include <string.h>
 #include <string>
 
-#include "exlib/array.h"
-#include "exlib/io.h"
-#include "exlib/memory.h"
-#include "exlib/tokenizer.h"
-#include "exlib/math_expression.h"
-#include "exlib/utils.h"
-#include "exlib/hashmap.h"
+#include <exlib/array.h>
+#include <exlib/io.h>
+#include <exlib/memory.h>
+#include <exlib/tokenizer.h>
+#include <exlib/math_expression.h>
+#include <exlib/utils.h>
+#include <exlib/hashmap.h>
+#include <exlib/math_symbols.h>
 
 
-static Real solve_math_expression_str(const char* str)
+static Real solve_math_expression_str(const char* str, const MathSymbols* symbols = NULL)
 {
 	Tokenizer tokenizer = Tokenizer(str);
 	Array<Token> tokens = tokenizer.tokenize();
@@ -25,7 +26,7 @@ static Real solve_math_expression_str(const char* str)
 	}
 
 	MathExpression math_exp = MathExpression(tokens);
-	Real result = math_exp.solve();
+	Real result = math_exp.solve(symbols);
 	errors = math_exp.errors();
 	if (errors.size() > 0)
 	{
@@ -56,8 +57,33 @@ static int solve_input_expression(bool* loop_again)
 		return 0;
 	}
 
-	Real solution = solve_math_expression_str(line);
+	// handle empty line
+	if (strlen(line) == 0)
+	{
+		mem_free(line);
+		return 0;
+	}
+	
+	// last result static variables
+	static Real last_result = 0.0;
+	static MathSymbols symbols = default_math_symbols();
+
+	// update ans
+	if (symbols.constants.find("ans"))
+	{
+		symbols.constants.find("ans")->value = last_result;
+	}
+	else
+	{
+		symbols.constants.add("ans", last_result);
+	}
+
+	// solve
+	Real solution = solve_math_expression_str(line, &symbols);
 	printf("\t = %f\n", solution);
+
+	// update last result
+	last_result = solution;
 
 	mem_free(line);
 

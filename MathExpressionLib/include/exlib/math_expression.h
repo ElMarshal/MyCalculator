@@ -2,6 +2,7 @@
 
 #include "array.h"
 #include "tokenizer.h"
+#include "math_symbols.h"
 
 
 class MathExpression
@@ -9,7 +10,7 @@ class MathExpression
 public:
 	MathExpression(const Array<Token>& tokens);
 
-	Real solve();
+	Real solve(const MathSymbols* symbols = NULL);
 
 	const Array<std::string>& errors() const;
 

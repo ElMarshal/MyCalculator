@@ -1,4 +1,4 @@
-#include "exlib/utils.h"
+#include <exlib/utils.h>
 
 
 bool is_operator(const char c)
@@ -66,5 +66,29 @@ char char_to_uppercase(const char c)
 		return c - ('a' - 'A');
 	}
 	return c;
+}
+
+std::string str_to_lowercase(const std::string& str)
+{
+	std::string result;
+
+	for (size_t i = 0; i < str.size(); i++)
+	{
+		result += char_to_lowercase(str[i]);
+	}
+
+	return result;
+}
+
+std::string str_to_uppercase(const std::string& str)
+{
+	std::string result;
+
+	for (size_t i = 0; i < str.size(); i++)
+	{
+		result += char_to_uppercase(str[i]);
+	}
+
+	return result;
 }
 

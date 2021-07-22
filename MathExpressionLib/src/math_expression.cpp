@@ -1,9 +1,9 @@
-#include "exlib/math_expression.h"
+#include <exlib/math_expression.h>
 
-#include "exlib/memory.h"
-#include "exlib/stack.h"
-#include "exlib/fmt_string.h"
-#include "exlib/utils.h"
+#include <exlib/memory.h>
+#include <exlib/stack.h>
+#include <exlib/fmt_string.h>
+#include <exlib/utils.h>
 
 
 // Notes:
@@ -25,7 +25,7 @@ const Array<std::string>& MathExpression::errors() const
 	return m_errors;
 }
 
-Real MathExpression::solve()
+Real MathExpression::solve(const MathSymbols* symbols)
 {
 	// convert from infix to postfix notation
 	Array<Token> postfix_tokens;
@@ -80,7 +80,24 @@ Real MathExpression::solve()
 		}
 		else if (cur_token.type == TT_SYMBOL)
 		{
-			// TODO: handle constants and functions symbols
+			// constant
+			auto* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
+			auto* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
+
+			if (found_constant_symbol)
+			{
+				postfix_tokens.push(cur_token);
+			}
+			else if (found_function_symbol)
+			{
+				temp_stack.push(cur_token);
+			}
+			else
+			{
+				// handle error
+				m_errors.push(fmt_string("Undefined symbol %d:%d: \'%s\'", cur_token.line_number, cur_token.column_number, cur_token.str.c_str()));
+				return 0.0;
+			}
 		}
 		else
 		{
@@ -152,6 +169,36 @@ Real MathExpression::solve()
 			}
 
 			num_stack.push(result);
+		}
+		else if (cur_token.type == TT_SYMBOL)
+		{
+			// constant
+			auto* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
+			auto* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
+
+			if (found_constant_symbol)
+			{
+				num_stack.push(found_constant_symbol->value);
+			}
+			else if (found_function_symbol)
+			{
+				// check for parameters
+				if (num_stack.size() < 1)
+				{
+					// handle error
+					m_errors.push(fmt_string("Missing parameter for \'%s\' function %d:%d", cur_token.str, cur_token.line_number, cur_token.column_number));
+					return 0.0;
+				}
+
+				// push function output
+				Real param = num_stack.pop();
+				Real result = 0.0;
+				if (found_function_symbol->value)
+				{
+					result = found_function_symbol->value(param);
+				}
+				num_stack.push(result);
+			}
 		}
 	}
 

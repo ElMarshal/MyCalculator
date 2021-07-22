@@ -56,6 +56,21 @@ public:
 		}
 	}
 
+	HashMap(const HashMap<K, V>& rhs) :
+		HashMap()
+	{
+		for (size_t i = 0; i < HASH_MAP_SIZE; i++)
+		{
+			HashMapNode<K, V>* cur = rhs.m_list_array[i];
+
+			while (cur != NULL)
+			{
+				add(cur->key, cur->value);
+				cur = cur->next;
+			}
+		}
+	}
+
 	~HashMap()
 	{
 		for (size_t i = 0; i < HASH_MAP_SIZE; i++)
@@ -71,6 +86,40 @@ public:
 		}
 	}
 
+	HashMap<K, V>& operator=(const HashMap<K, V>& rhs)
+	{
+		// lazy
+		clear();
+
+		for (size_t i = 0; i < HASH_MAP_SIZE; i++)
+		{
+			HashMapNode<K, V>* cur = rhs.m_list_array[i];
+
+			while (cur != NULL)
+			{
+				add(cur->key, cur->value);
+				cur = cur->next;
+			}
+		}
+	}
+
+	void clear()
+	{
+		for (size_t i = 0; i < HASH_MAP_SIZE; i++)
+		{
+			HashMapNode<K, V>* cur = m_list_array[i];
+
+			while (cur != NULL)
+			{
+				HashMapNode<K, V>* next = cur->next;
+				mem_delete(cur);
+				cur = next;
+			}
+
+			m_list_array[i] = NULL;
+		}
+	}
+
 	KeyValuePair<K, V>* find(const K& key)
 	{
 		size_t index = hash_key(key) % HASH_MAP_SIZE;
@@ -79,6 +128,16 @@ public:
 		HashMapNode<K, V>* found_node = node_find(root, key);
 		
 		return (KeyValuePair<K, V>*)&found_node->key;
+	}
+
+	const KeyValuePair<K, V>* find(const K& key) const
+	{
+		size_t index = hash_key(key) % HASH_MAP_SIZE;
+		const HashMapNode<K, V>* root = m_list_array[index];
+
+		const HashMapNode<K, V>* found_node = node_find(root, key);
+
+		return (const KeyValuePair<K, V>*)&found_node->key;
 	}
 
 	bool exists(const K& key) const
@@ -150,6 +209,22 @@ private:
 	HashMapNode<K, V>* node_find(HashMapNode<K, V>* root, const K& key)
 	{
 		HashMapNode<K, V>* cur = root;
+
+		while (cur != NULL)
+		{
+			if (cur->key == key)
+			{
+				return cur;
+			}
+			cur = cur->next;
+		}
+
+		return NULL;
+	}
+
+	const HashMapNode<K, V>* node_find(const HashMapNode<K, V>* root, const K& key) const
+	{
+		const HashMapNode<K, V>* cur = root;
 
 		while (cur != NULL)
 		{

@@ -1,7 +1,7 @@
-#include "exlib/io.h"
+#include <exlib/io.h>
 
-#include "exlib/array.h"
-#include "memory.h"
+#include <exlib/array.h>
+#include <memory.h>
 
 
 char* readline(FILE* stream)
