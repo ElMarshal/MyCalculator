@@ -1,6 +1,10 @@
 # My Calculator
-An arithmetic expression parser that support spaces, parentheses and scientific notation numbers.
+An arithmetic expression parser that support spaces, parentheses, 
+scientific notation, constants and functions written in c++.\
+the project also implements common data structures like Dynamic Arrays, Linked List and Hash Map.\
+It is stand-alone with no dependencies, except for Qt for MyCalculatorGUI.
 
+## Screenshot:
 ![Screenshot of the GUI](screenshots/gui_screenshot.png)
 
 ## Components:
@@ -14,7 +18,7 @@ An arithmetic expression parser that support spaces, parentheses and scientific 
 
 ## Code Example:
 ```Cpp
-static Real solve_math_expression_str(const char* str)
+Real solve_math_expression_str(const char* str)
 {
 	Tokenizer tokenizer = Tokenizer(str);
 	Array<Token> tokens = tokenizer.tokenize();
