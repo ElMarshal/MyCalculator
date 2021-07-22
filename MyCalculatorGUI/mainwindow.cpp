@@ -26,8 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui.btn_7, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "7"));
     connect(ui.btn_8, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "8"));
     connect(ui.btn_9, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "9"));
+
     connect(ui.btn_dot, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "."));
+    connect(ui.btn_exp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "e"));
+
     connect(ui.btn_e, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "e"));
+    connect(ui.btn_pi, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "pi"));
 
     connect(ui.btn_plus, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "+"));
     connect(ui.btn_minus, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "-"));
@@ -37,7 +41,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui.btn_lp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "("));
     connect(ui.btn_rp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, ")"));
 
-    connect(ui.btn_ans, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_real, this, std::cref(m_last_result)));
+    connect(ui.btn_sin, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "sin("));
+    connect(ui.btn_cos, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "cos("));
+
+    connect(ui.btn_ans, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "ans"));
 
     connect(ui.btn_del, &QPushButton::pressed, this, std::bind(&MainWindow::exp_delete, this));
     connect(ui.btn_cl, &QPushButton::pressed, this, std::bind(&MainWindow::exp_clear, this));
@@ -84,6 +91,10 @@ MainWindow::MainWindow(QWidget *parent)
     // initialize variables
     exp_clear();
     m_last_result = 0.0;
+
+    // initialize math symbols
+    m_symbols = default_math_symbols();
+    m_symbols.constants.add("ans", m_last_result);
 }
 
 
@@ -102,9 +113,19 @@ void MainWindow::solve_expression()
         return;
     }
 
+    // update ans
+    if (m_symbols.constants.find("ans"))
+    {
+        m_symbols.constants.find("ans")->value = m_last_result;
+    }
+    else
+    {
+        m_symbols.constants.add("ans", m_last_result);
+    }
+
     // Solve expression
     MathExpression math_exp = MathExpression(tokens);
-    Real result = math_exp.solve();
+    Real result = math_exp.solve(&m_symbols);
     errors = math_exp.errors();
     if (errors.size() > 0)
     {

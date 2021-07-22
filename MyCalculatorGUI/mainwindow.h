@@ -6,6 +6,8 @@
 #include "ui_mainwindow.h"
 
 #include <exlib/real.h>
+#include <exlib/math_symbols.h>
+
 
 class MainWindow : public QMainWindow
 {
@@ -28,5 +30,6 @@ private:
     Ui::MainWindow ui;
 
     double m_last_result;
+    MathSymbols m_symbols;
 };
 #endif // MAINWINDOW_H
