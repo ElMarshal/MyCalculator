@@ -25,6 +25,11 @@ bool is_signed_number(const char c)
 	return c == '+' || c == '-' || is_digit(c);
 }
 
+bool is_alphabit(const char c)
+{
+	return is_lowercase(c) || is_uppercase(c);
+}
+
 int char_to_digit(const char c)
 {
 	if (is_digit(c))

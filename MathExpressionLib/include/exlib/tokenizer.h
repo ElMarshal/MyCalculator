@@ -11,6 +11,7 @@ enum TokenType
 	TT_UNKNOWN = 0,
 	TT_OPERATOR,
 	TT_NUMBER,
+	TT_SYMBOL, // can be a constant (PI, e, etc...) or function (sin, cos, etc...)
 	TT_PARENTHESES,
 };
 

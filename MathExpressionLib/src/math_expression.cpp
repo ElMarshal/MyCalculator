@@ -77,6 +77,16 @@ Real MathExpression::solve()
 				temp_stack.push(cur_token);
 			}
 		}
+		else if (cur_token.type == TT_SYMBOL)
+		{
+			// TODO: handle constants and functions symbols
+		}
+		else
+		{
+			// handle error
+			m_errors.push(fmt_string("Unknown token %d:%d: \'%s\'", cur_token.line_number, cur_token.column_number, cur_token.str.c_str()));
+			return 0.0;
+		}
 	}
 
 	// pop the rest of the stack
@@ -140,7 +150,7 @@ Real MathExpression::solve()
 		}
 	}
 
-	if (num_stack.size() == 0)
+	if (num_stack.size() != 1)
 	{
 		// handle error
 		m_errors.push("Unbalanced arithmatic expression");
@@ -148,7 +158,7 @@ Real MathExpression::solve()
 	}
 
 	// return value
-	return num_stack.pop();
+	return num_stack.top();
 }
 
 

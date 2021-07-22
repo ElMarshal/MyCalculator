@@ -74,6 +74,15 @@ bool Tokenizer::next_token()
 		token.type = TT_PARENTHESES;
 		token.specific.op.v = advance();
 	}
+	else if (is_alphabit(peek()))
+	{
+		token.type = TT_SYMBOL;
+		advance();
+		while (is_alphabit(peek()) || is_digit(peek()))
+		{
+			advance();
+		}
+	}
 	else
 	{
 		// handle error

@@ -3,6 +3,7 @@
 bool is_operator(const char c);
 bool is_digit(const char c);
 bool is_signed_number(const char c);
+bool is_alphabit(const char c);
 bool is_lowercase(const char c);
 bool is_uppercase(const char c);
 
