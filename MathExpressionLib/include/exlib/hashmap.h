@@ -101,6 +101,8 @@ public:
 				cur = cur->next;
 			}
 		}
+
+		return *this;
 	}
 
 	void clear()

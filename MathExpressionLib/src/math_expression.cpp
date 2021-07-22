@@ -10,7 +10,7 @@
 //  infix to postfix algorithm: https://condor.depaul.edu/ichu/csc415/notes/notes9/Infix.htm
 
 
-static int operator_priority(const char c);
+static int token_priority(const Token& token);
 static bool is_left_parentheses(const Token& token);
 static bool is_right_parentheses(const Token& token);
 
@@ -43,7 +43,7 @@ Real MathExpression::solve(const MathSymbols* symbols)
 		{
 			if (is_right_parentheses(cur_token))
 			{
-				// right arentheses
+				// right parentheses
 				while (temp_stack.size() > 0)
 				{
 					if (is_left_parentheses(temp_stack.top()))
@@ -56,7 +56,7 @@ Real MathExpression::solve(const MathSymbols* symbols)
 			}
 			else if (is_left_parentheses(cur_token))
 			{
-				// left arentheses
+				// left parentheses
 				temp_stack.push(cur_token);
 			}
 			else if (cur_token.type == TT_OPERATOR)
@@ -68,7 +68,7 @@ Real MathExpression::solve(const MathSymbols* symbols)
 					{
 						break;
 					}
-					else if (operator_priority(temp_stack.top().specific.op.v) < operator_priority(cur_token.specific.op.v))
+					else if (token_priority(temp_stack.top()) < token_priority(cur_token))
 					{
 						break;
 					}
@@ -216,24 +216,37 @@ Real MathExpression::solve(const MathSymbols* symbols)
 
 // static functions
 
-static int operator_priority(const char c)
+static int token_priority(const Token& token)
 {
-	switch (c)
+	if (token.type == TT_SYMBOL)
 	{
-	case '+':
-	case '-':
-		return 1;
-
-	case '*':
-	case '/':
-		return 2;
-
-	case '^':
-		return 3;
-
-	default:
-		return 0;
+		return 10;
 	}
+	else if (is_left_parentheses(token))
+	{
+		return -1;
+	}
+	else if (token.type == TT_OPERATOR)
+	{
+		switch (token.specific.op.v)
+		{
+		case '+':
+		case '-':
+			return 1;
+
+		case '*':
+		case '/':
+			return 2;
+
+		case '^':
+			return 3;
+
+		default:
+			return 0;
+		}
+	}
+
+	return 0;
 }
 
 static bool is_left_parentheses(const Token& token)
