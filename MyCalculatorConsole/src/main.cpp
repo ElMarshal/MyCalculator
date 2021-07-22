@@ -35,9 +35,9 @@ static Real solve_math_expression_str(const char* str)
 	return result;
 }
 
-static int solve_input_expression()
+static int solve_input_expression(bool* loop_again)
 {
-	printf("Input arithmatic expression:\n");
+	printf("> ");
 
 	char* line = readline(stdin);
 	if (!line)
@@ -46,8 +46,15 @@ static int solve_input_expression()
 		return -1;
 	}
 
+	// handle exit
+	if (strcmp(line, "exit") == 0)
+	{
+		*loop_again = false;
+		return 0;
+	}
+
 	Real solution = solve_math_expression_str(line);
-	printf("\t%s = %f\n", line, solution);
+	printf("\t = %f\n", solution);
 
 	mem_free(line);
 
@@ -96,28 +103,20 @@ int main()
 {
 	// tests
 	tests();
+	printf("\n");
 
 
 	// main loop
 	int exit_status = 0;
-
 	bool loop = true;
+
+	printf("Input arithmetic expression: \n");
+
 	while (loop)
 	{
-		int exit_status = solve_input_expression();
+		int exit_status = solve_input_expression(&loop);
 		if (exit_status != 0)
 		{
-			break;
-		}
-		
-		printf("Again ? [Y]es / [N]o:\n");
-		switch (char_to_uppercase(getchar()))
-		{
-		case 'Y':
-			continue;
-		case 'N':
-		default:
-			loop = false;
 			break;
 		}
 	}

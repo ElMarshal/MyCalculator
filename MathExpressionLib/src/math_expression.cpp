@@ -3,6 +3,7 @@
 #include "exlib/memory.h"
 #include "exlib/stack.h"
 #include "exlib/fmt_string.h"
+#include "exlib/utils.h"
 
 
 // Notes:
@@ -128,6 +129,7 @@ Real MathExpression::solve()
 			Real lhs = num_stack.pop();
 			Real result = 0.0;
 
+			// apply operator
 			switch (cur_token.specific.op.v)
 			{
 			case '+':
@@ -141,6 +143,9 @@ Real MathExpression::solve()
 				break;
 			case '/':
 				result = lhs / rhs;
+				break;
+			case '^':
+				result = r_pow(lhs, rhs);
 				break;
 			default:
 				break;
@@ -175,6 +180,9 @@ static int operator_priority(const char c)
 	case '*':
 	case '/':
 		return 2;
+
+	case '^':
+		return 3;
 
 	default:
 		return 0;

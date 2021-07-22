@@ -9,6 +9,7 @@ bool is_operator(const char c)
 	case '-':
 	case '*':
 	case '/':
+	case '^':
 		return true;
 	}
 
