@@ -9,6 +9,7 @@
 #include "exlib/tokenizer.h"
 #include "exlib/math_expression.h"
 #include "exlib/utils.h"
+#include "exlib/hashmap.h"
 
 
 static Real solve_math_expression_str(const char* str)
@@ -49,6 +50,8 @@ static int solve_input_expression(bool* loop_again)
 	// handle exit
 	if (strcmp(line, "exit") == 0)
 	{
+		mem_free(line);
+
 		*loop_again = false;
 		return 0;
 	}
@@ -104,6 +107,51 @@ int main()
 	// tests
 	tests();
 	printf("\n");
+
+
+
+	// test hashmap
+	{
+		printf("HashMap tests: \n");
+
+		HashMap<std::string, int> hashmap;
+
+		hashmap.add("one", 1);
+		hashmap.add("two", 2);
+		hashmap.add("three", 3);
+		hashmap.add("four", 4);
+		hashmap.add("five", 5);
+		hashmap.add("six", 6);
+		hashmap.add("seven", 7);
+		hashmap.add("eight", 8);
+		hashmap.add("nine", 9);
+		hashmap.add("ten", 10);
+		hashmap.add("eleven", 11);
+		hashmap.add("twelve", 12);
+
+		hashmap.remove("five");
+		hashmap.remove("seven");
+
+		hashmap.find("ten")->value = 100;
+		hashmap.add("one", 111);
+
+		const char* words[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve" };
+		for (int i = 0; i < 12; i++)
+		{
+			auto* found = hashmap.find(words[i]);
+			if (found)
+			{
+				printf("- found \'%s\' = %d\n", found->key.c_str(), found->value);
+			}
+			else
+			{
+				printf("- NOT FOUND\n");
+			}
+		}
+		printf("\n");
+		printf("\n");
+	}
+
 
 
 	// main loop

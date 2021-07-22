@@ -42,6 +42,12 @@
     <ClInclude Include="include\exlib\real.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\exlib\hashmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exlib\linked_list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\io.cpp">
