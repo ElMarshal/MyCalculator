@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui.btn_minus, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "-"));
     connect(ui.btn_mul, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "*"));
     connect(ui.btn_div, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "/"));
+    connect(ui.btn_pow, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "^"));
 
     connect(ui.btn_lp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, "("));
     connect(ui.btn_rp, &QPushButton::pressed, this, std::bind(&MainWindow::exp_append_str, this, ")"));
@@ -129,6 +130,7 @@ void MainWindow::solve_expression()
     errors = math_exp.errors();
     if (errors.size() > 0)
     {
+        ui.lbl_result->setText("= ");
         ui.lbl_log->setText(QString("- Expression error: %1").arg(QString::fromUtf8(errors[0].c_str())));
         return;
     }
