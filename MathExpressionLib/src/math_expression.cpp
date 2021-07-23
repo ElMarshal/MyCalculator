@@ -80,9 +80,15 @@ Real MathExpression::solve(const MathSymbols* symbols)
 		}
 		else if (cur_token.type == TT_SYMBOL)
 		{
-			// constant
-			auto* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
-			auto* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
+			// find constant or function symbol (priority to constants)
+			KeyValuePair<std::string, Real>* found_constant_symbol = NULL;
+			KeyValuePair<std::string, MathFunction>* found_function_symbol = NULL;
+
+			if (symbols)
+			{
+				auto* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
+				auto* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
+			}
 
 			if (found_constant_symbol)
 			{
