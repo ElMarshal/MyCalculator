@@ -92,7 +92,10 @@ static int solve_input_expression(bool* loop_again)
 
 static void test_expression(const char* expression, Real expected_result)
 {
-	Real result = solve_math_expression_str(expression);
+	// symbols
+	static MathSymbols symbols = default_math_symbols();
+
+	Real result = solve_math_expression_str(expression, &symbols);
 	const char* passed_str = (abs(result - expected_result) < 1e-6) ? "PASSED" : "FAILED";
 	printf("- [%s] Expression \'%s\' = %f, result = %f\n", passed_str, expression, expected_result, result);
 }
@@ -126,6 +129,9 @@ static void tests()
 	test_expression("(2) + (17*2-30) * (5)+2 - (8/2)*4", 8);
 	test_expression("(((((5)))))", 5);
 	test_expression("(( ((2)) + 4))*((5))", 30);
+
+	test_expression("sin(30*pi/180)", 0.5);
+	test_expression("cos(60*pi/180)", 0.5);
 }
 
 int main()
@@ -133,51 +139,6 @@ int main()
 	// tests
 	tests();
 	printf("\n");
-
-
-
-	// test hashmap
-	{
-		printf("HashMap tests: \n");
-
-		HashMap<std::string, int> hashmap;
-
-		hashmap.add("one", 1);
-		hashmap.add("two", 2);
-		hashmap.add("three", 3);
-		hashmap.add("four", 4);
-		hashmap.add("five", 5);
-		hashmap.add("six", 6);
-		hashmap.add("seven", 7);
-		hashmap.add("eight", 8);
-		hashmap.add("nine", 9);
-		hashmap.add("ten", 10);
-		hashmap.add("eleven", 11);
-		hashmap.add("twelve", 12);
-
-		hashmap.remove("five");
-		hashmap.remove("seven");
-
-		hashmap.find("ten")->value = 100;
-		hashmap.add("one", 111);
-
-		const char* words[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve" };
-		for (int i = 0; i < 12; i++)
-		{
-			auto* found = hashmap.find(words[i]);
-			if (found)
-			{
-				printf("- found \'%s\' = %d\n", found->key.c_str(), found->value);
-			}
-			else
-			{
-				printf("- NOT FOUND\n");
-			}
-		}
-		printf("\n");
-		printf("\n");
-	}
-
 
 
 	// main loop
