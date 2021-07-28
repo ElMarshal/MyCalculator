@@ -58,6 +58,8 @@ private:
 	void token_finished(); // sets m_begin_it = m_it
 	std::string get_token_string(); // gets the string of the current token = m_str(m_begin_it:m_it)
 
+	bool last_token_allow_signed_number() const;
+
 	int parse_digits();
 	Real parse_signed_number();
 	void parse_number(Token* token);

@@ -34,18 +34,25 @@ public:
 	const T& last() const;
 	
     void push(const T value);
+    void push_array(const Array<T>& arr);
 	void insert_at(const T value, size_t idx);
     T pop();
 	void remove(const T value);
 	void remove_at(size_t idx);
     void clear();
 
-    int find(const T value) const; // return -1 if not found
+    // returns -1 if not found
+    int find(const T value) const;
+
+    // ensures that the capacity can handle 'reserve_size' more elements
+    void reserve(size_t reserve_size);
 
 	size_t size() const;
 
 private:
 	void resize(size_t new_capacity);
+
+    // enures that the capacity is >= desired_size
 	void check_capacity_and_resize(size_t desired_size);
 
 private:
@@ -162,7 +169,7 @@ const T& Array<T>::last() const
 template <typename T>
 void Array<T>::push(const T value)
 {
-    check_capacity_and_resize(m_size);
+    check_capacity_and_resize(m_size + 1);
 
     new(&m_array[m_size]) T(value);
 
@@ -170,9 +177,20 @@ void Array<T>::push(const T value)
 }
 
 template <typename T>
+void Array<T>::push_array(const Array<T>& arr)
+{
+    reserve(arr.size);
+    
+    for (size_t i = 0; i < arr.size(); i++)
+    {
+        push(arr[i]);
+    }
+}
+
+template <typename T>
 void Array<T>::insert_at(const T value, size_t idx)
 {
-    check_capacity_and_resize(m_size);
+    check_capacity_and_resize(m_size + 1);
 
     for (size_t i = m_size; i > idx; i--)
     {
@@ -243,6 +261,12 @@ int Array<T>::find(const T value) const
 }
 
 template <typename T>
+void Array<T>::reserve(size_t reserve_size)
+{
+    check_capacity_and_resize(m_size + reserve_size);
+}
+
+template <typename T>
 size_t Array<T>::size() const
 {
     return m_size;
@@ -274,7 +298,7 @@ void Array<T>::resize(size_t new_capacity)
 template <typename T>
 void Array<T>::check_capacity_and_resize(size_t desired_size)
 {
-    if (desired_size >= m_capacity)
+    if (desired_size > m_capacity)
     {
         resize(MAX_SIZE_T(m_capacity * 2, desired_size));
     }

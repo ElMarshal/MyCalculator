@@ -22,7 +22,6 @@
     <ClInclude Include="include\exlib\array.h" />
     <ClInclude Include="include\exlib\fmt_string.h" />
     <ClInclude Include="include\exlib\hashmap.h" />
-    <ClInclude Include="include\exlib\io.h" />
     <ClInclude Include="include\exlib\linked_list.h" />
     <ClInclude Include="include\exlib\math_expression.h" />
     <ClInclude Include="include\exlib\math_symbols.h" />
@@ -34,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\fmt_string.cpp" />
-    <ClCompile Include="src\io.cpp" />
     <ClCompile Include="src\math_expression.cpp" />
     <ClCompile Include="src\math_symbols.cpp" />
     <ClCompile Include="src\memory.cpp" />

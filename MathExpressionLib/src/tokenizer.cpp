@@ -57,7 +57,7 @@ bool Tokenizer::next_token()
 		token.type = TT_NUMBER;
 		parse_number(&token);
 	}
-	else if (is_signed_number(peek()) && (m_tokens.size() > 0 && m_tokens.last().type == TT_OPERATOR || m_tokens.size() == 0))
+	else if (is_signed_number(peek()) && last_token_allow_signed_number())
 	{
 		// signed number = perator + [sign] + number
 		// + or - number
@@ -142,6 +142,24 @@ void Tokenizer::token_finished()
 std::string Tokenizer::get_token_string()
 {
 	return std::string(&m_str[m_begin_it], m_it - m_begin_it);
+}
+
+bool Tokenizer::last_token_allow_signed_number() const
+{
+	if (m_tokens.size() == 0)
+	{
+		return true;
+	}
+	else if (m_tokens.last().type == TT_OPERATOR)
+	{
+		return true;
+	}
+	else if (m_tokens.last().type == TT_PARENTHESES && m_tokens.last().specific.parenthesis.v == '(')
+	{
+		return true;
+	}
+
+	return false;
 }
 
 int Tokenizer::parse_digits()

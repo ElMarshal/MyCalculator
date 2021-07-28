@@ -6,10 +6,6 @@
 #include <exlib/utils.h>
 
 
-// Notes:
-//  infix to postfix algorithm: https://condor.depaul.edu/ichu/csc415/notes/notes9/Infix.htm
-
-
 static int token_priority(const Token& token);
 static bool is_left_parentheses(const Token& token);
 static bool is_right_parentheses(const Token& token);
@@ -81,13 +77,13 @@ Real MathExpression::solve(const MathSymbols* symbols)
 		else if (cur_token.type == TT_SYMBOL)
 		{
 			// find constant or function symbol (priority to constants)
-			KeyValuePair<std::string, Real>* found_constant_symbol = NULL;
-			KeyValuePair<std::string, MathFunction>* found_function_symbol = NULL;
+			const KeyValuePair<std::string, Real>* found_constant_symbol = NULL;
+			const KeyValuePair<std::string, MathFunction>* found_function_symbol = NULL;
 
 			if (symbols)
 			{
-				auto* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
-				auto* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
+				found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
+				found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
 			}
 
 			if (found_constant_symbol)
@@ -179,8 +175,8 @@ Real MathExpression::solve(const MathSymbols* symbols)
 		else if (cur_token.type == TT_SYMBOL)
 		{
 			// constant
-			auto* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
-			auto* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
+			const KeyValuePair<std::string, Real>* found_constant_symbol = symbols->constants.find(str_to_lowercase(cur_token.str));
+			const KeyValuePair<std::string, MathFunction>* found_function_symbol = symbols->functions.find(str_to_lowercase(cur_token.str));
 
 			if (found_constant_symbol)
 			{
