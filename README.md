@@ -17,13 +17,21 @@ It has full syntax and arithmetic error support.
 
 ## Components:
 * MathExpressionLib: The arithmetic expression parsing library.
+* tests: tests for MathExpressionLib.
 * MyCalculatorConsole: A console calculator based on MathExpressionLib.
 * MyCalculatorGUI: A GUI calculator based on MathExpressionLib.
 
 
-## Build:
+## Building:
 * Visual Studio: To build MathExpressionLib and MyCalculatorConsole.
 * Qt: To build MyCalculatorGUI.
+* also you can create a makefile or project then compiling,
+ as the project has no external dependencies,
+ except for the Qt for the GUI only.
+
+
+## Pre-Compiled Binaries:
+[Download from releases (DOWNLOAD AT YOUR OWN RISK!)](https://github.com/ElMarshal/MyCalculator/releases)
 
 
 ## Code Example:
@@ -136,6 +144,4 @@ test multiple parentheses:
  - SHOULD_ERROR: [PASSED] Expression 'sdfsdfsd0(1)' >>> Undefined symbol 0:0: 'sdfsdfsd0'
 ---
 
-
-## Done ✔️
 
