@@ -76,9 +76,10 @@ bool Tokenizer::next_token()
 	}
 	else if (is_alphabit(peek()))
 	{
+		// parse symbol
 		token.type = TT_SYMBOL;
 		advance();
-		while (is_alphabit(peek()) || is_digit(peek()))
+		while (is_alphabit(peek()) || is_digit(peek()) || peek() == '_')
 		{
 			advance();
 		}

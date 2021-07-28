@@ -64,14 +64,13 @@ class Tester
 public:
 	Tester()
 	{
-		m_passed = true;
 		m_fail_count = 0;
 		m_symbols = default_math_symbols();
 	}
 
 	bool passed() const
 	{
-		return m_passed;
+		return m_fail_count == 0;
 	}
 
 	int fail_count() const
@@ -84,7 +83,6 @@ public:
 	bool should_error(const char* expression, ErrorType error_type);
 
 private:
-	bool m_passed;
 	int m_fail_count;
 	MathSymbols m_symbols;
 };
@@ -113,7 +111,6 @@ bool Tester::test_expression(const char* expression, Real expected_result)
 	// check overall passed flag
 	if (solution.error_type != ET_NO_ERROR)
 	{
-		m_passed = false;
 		m_fail_count += 1;
 	}
 
@@ -144,7 +141,6 @@ bool Tester::should_error(const char* expression, ErrorType error_type)
 	// check overall passed flag
 	if (solution.error_type != error_type)
 	{
-		m_passed = false;
 		m_fail_count += 1;
 	}
 
@@ -243,6 +239,24 @@ int main()
 		tester.test_expression(fmt_string("asin(%f)", num).c_str(), r_asin(num));
 		tester.test_expression(fmt_string("acos(%f)", num).c_str(), r_acos(num));
 	}
+
+
+	// test errors
+	printf("\n\ntest errors: \n");
+	tester.should_error(".", ET_TOKENIZER);
+	tester.should_error("5..", ET_TOKENIZER);
+	tester.should_error("61-e.", ET_TOKENIZER);
+	tester.should_error("(1", ET_SOLVER);
+	tester.should_error("1+", ET_SOLVER);
+	tester.should_error("1-", ET_SOLVER);
+	tester.should_error("1*", ET_SOLVER);
+	tester.should_error("1/", ET_SOLVER);
+	tester.should_error("*", ET_SOLVER);
+	tester.should_error("/1", ET_SOLVER);
+	tester.should_error("unknown_symbol1", ET_SOLVER);
+	tester.should_error("unknown_symbol2", ET_SOLVER);
+	tester.should_error("sdfsdfsd", ET_SOLVER);
+	tester.should_error("sdfsdfsd0(1)", ET_SOLVER);
 
 
 	// check for overall pass flag
